@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "blocks": {
         "title": {
-          "type": "title"
+          "type": "title",
+          "settings": {}
         },
         "untertitel": {
           "type": "text",
@@ -14,7 +24,8 @@
           }
         },
         "price": {
-          "type": "price"
+          "type": "price",
+          "settings": {}
         },
         "rabatt_kontext": {
           "type": "custom_liquid",
@@ -25,8 +36,13 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "dropdown"
+            "picker_type": "dropdown",
+            "swatch_shape": "circle"
           }
+        },
+        "smart_discounts_widget_8mAYMJ": {
+          "type": "shopify://apps/smart-discounts/blocks/widget/019d1c1c-2c4b-704e-be88-ea7fd20c9afb",
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -42,7 +58,8 @@
           }
         },
         "description": {
-          "type": "description"
+          "type": "description",
+          "settings": {}
         },
         "tab_material": {
           "type": "collapsible_tab",
@@ -87,6 +104,7 @@
         "price",
         "rabatt_kontext",
         "variant_picker",
+        "smart_discounts_widget_8mAYMJ",
         "buy_buttons",
         "trust_icons",
         "description",
@@ -97,14 +115,24 @@
       ],
       "settings": {
         "enable_sticky_info": true,
-        "gallery_layout": "stacked",
+        "color_scheme": "",
         "media_size": "large",
         "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
         "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": true,
         "padding_top": 36,
         "padding_bottom": 12
+      }
+    },
+    "1781221903903a241a": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
       }
     },
     "erklaerer": {
@@ -140,7 +168,7 @@
       "settings": {
         "heading": "So funktioniert SwopCase",
         "note": "In Sekunden gewechselt – beliebig oft.",
-        "background_color": "#F1E9E9",
+        "background_color": "#f1e9e9",
         "padding_top": 32,
         "padding_bottom": 32
       }
@@ -154,7 +182,7 @@
         "products_to_show": 8,
         "show_view_all": true,
         "view_all_label": "Alle Swops ansehen",
-        "background_color": "#F1E9E9",
+        "background_color": "#f1e9e9",
         "padding_top": 56,
         "padding_bottom": 56
       }
@@ -202,7 +230,8 @@
         "signal_passform"
       ],
       "settings": {
-        "background_color": "#FFFFFF",
+        "heading": "",
+        "background_color": "#ffffff",
         "padding_top": 32,
         "padding_bottom": 32
       }
@@ -216,8 +245,8 @@
             "name": "Lena M.",
             "rating": 5,
             "date": "vor 2 Wochen",
-            "verified": true,
-            "text": "ehrlich beste hülle die ich hatte. hab jetzt 4 swops und wechsel je nach outfit haha. qualität top!"
+            "text": "ehrlich beste hülle die ich hatte. hab jetzt 4 swops und wechsel je nach outfit haha. qualität top!",
+            "verified": true
           }
         },
         "review_2": {
@@ -226,8 +255,8 @@
             "name": "Jasmin",
             "rating": 5,
             "date": "vor 1 Monat",
-            "verified": true,
-            "text": "Sehr schnell geliefert und sitzt perfekt. Die Designs sehen noch besser aus als auf den Fotos."
+            "text": "Sehr schnell geliefert und sitzt perfekt. Die Designs sehen noch besser aus als auf den Fotos.",
+            "verified": true
           }
         },
         "review_3": {
@@ -236,8 +265,8 @@
             "name": "Carla R.",
             "rating": 4,
             "date": "vor 3 Wochen",
-            "verified": true,
-            "text": "Hülle ist mega, nur das wechseln muss man kurz üben. nach dem 2. mal gehts dann easy."
+            "text": "Hülle ist mega, nur das wechseln muss man kurz üben. nach dem 2. mal gehts dann easy.",
+            "verified": true
           }
         },
         "review_4": {
@@ -246,8 +275,8 @@
             "name": "Niko",
             "rating": 5,
             "date": "vor 5 Tagen",
-            "verified": true,
-            "text": "hab die case meiner freundin geschenkt, sie liebt es. mit den swops das perfekte geschenk."
+            "text": "hab die case meiner freundin geschenkt, sie liebt es. mit den swops das perfekte geschenk.",
+            "verified": true
           }
         }
       },
@@ -263,7 +292,7 @@
         "show_summary": true,
         "avg_rating": "4,8",
         "rating_count": "312",
-        "background_color": "#F1E9E9",
+        "background_color": "#f1e9e9",
         "padding_top": 56,
         "padding_bottom": 56
       }
@@ -275,12 +304,16 @@
         "button_label": "In den Warenkorb",
         "show_price": true,
         "show_on_desktop": false,
-        "scroll_threshold": 600
+        "scroll_threshold": 600,
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "background_color": "#ffffff"
       }
     }
   },
   "order": [
     "main",
+    "1781221903903a241a",
     "erklaerer",
     "crosssell",
     "trust",
