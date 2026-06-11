@@ -1,0 +1,33 @@
+{%- comment -%}
+  SwopCase – Bundle context line (one sentence)
+  ------------------------------------------------------------
+  A short, honest context line that sits ABOVE the discount
+  app widget on the PDP (between price and "In den Warenkorb").
+
+  It only EXPLAINS the benefit in words. The actual discount
+  logic stays with the Smart Automatic Discounts app, which is
+  the single source of truth. This snippet never calculates or
+  duplicates any discount.
+
+  Phase 1: file is created only. It is NOT wired into any Dawn
+  file yet (that happens in a later, approved phase).
+
+  Styles live in assets/swopcase-theme.css (.swopcase-bundle-kontext).
+
+  Optional param:
+    {% render 'swopcase-bundle-kontext',
+        text: 'Mehr Designs, mehr Vorteil: …' %}
+{%- endcomment -%}
+
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign kontext = text | default: 'Je mehr Swops, desto besser der Preis – dein <strong>Mengenrabatt</strong> wird automatisch im Warenkorb abgezogen.'
+-%}
+
+<div class="swopcase-bundle-kontext" role="note">
+  <svg class="swopcase-bundle-kontext__icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2l2.6 5.27L20.4 8l-4.2 4.1 1 5.8L12 15.1 6.8 17.9l1-5.8L3.6 8l5.8-.73z" />
+  </svg>
+  <p class="swopcase-bundle-kontext__text">{{ kontext }}</p>
+</div>

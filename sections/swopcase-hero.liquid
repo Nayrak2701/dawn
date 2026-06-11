@@ -1,0 +1,277 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-hero-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-hero-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-hero-{{ section.id }}" class="swop-section swopcase-hero"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    <div class="swopcase-hero__grid">
+      <div class="swopcase-hero__media-col">
+        <picture class="swopcase-hero__picture">
+          {%- if section.settings.image_desktop != blank -%}
+            <source media="(min-width: 750px)" srcset="{{ section.settings.image_desktop | image_url: width: 1440 }}" width="1440" height="800">
+          {%- else -%}
+            <source media="(min-width: 750px)" srcset="{{ 'placeholder-hero-desktop.svg' | asset_url }}" width="1440" height="800">
+          {%- endif -%}
+          {%- if section.settings.image_mobile != blank -%}
+            <img class="swop-media swop-media--round swopcase-hero__img" src="{{ section.settings.image_mobile | image_url: width: 750 }}" alt="{{ section.settings.image_mobile.alt | escape }}" width="750" height="900" loading="eager" fetchpriority="high">
+          {%- else -%}
+            <img class="swop-media swop-media--round swopcase-hero__img" src="{{ 'placeholder-hero-mobile.svg' | asset_url }}" alt="" width="750" height="900" loading="eager" fetchpriority="high">
+          {%- endif -%}
+        </picture>
+      </div>
+
+      <div class="swopcase-hero__text-col">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="swop-eyebrow swopcase-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="swop-title swop-title--xl swopcase-hero__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <div class="swop-lead swopcase-hero__subheading">{{ section.settings.subheading }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank or section.settings.button_label_2 != blank -%}
+          <div class="swopcase-hero__actions">
+            {%- if section.settings.button_label != blank -%}
+              <a class="swop-btn swop-btn--primary swop-btn--block swopcase-hero__btn" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label | escape }}</a>
+            {%- endif -%}
+            {%- if section.settings.button_label_2 != blank -%}
+              <a class="swop-btn swop-btn--secondary swop-btn--block swopcase-hero__btn" href="{{ section.settings.button_link_2 | default: '#' }}">{{ section.settings.button_label_2 | escape }}</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_social_proof and section.settings.social_proof_text != blank -%}
+          <p class="swopcase-hero__social-proof">{{ section.settings.social_proof_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .swopcase-hero__grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 6vw, 36px);
+  }
+
+  .swopcase-hero__media-col {
+    width: 100%;
+  }
+
+  .swopcase-hero__picture {
+    display: block;
+    width: 100%;
+  }
+
+  .swopcase-hero__img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .swopcase-hero__text-col {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .swopcase-hero__eyebrow {
+    margin: 0 0 12px;
+  }
+
+  .swopcase-hero__heading {
+    margin: 0 0 16px;
+  }
+
+  .swopcase-hero__subheading {
+    margin: 0 0 28px;
+    max-width: 46ch;
+  }
+
+  .swopcase-hero__subheading > :first-child {
+    margin-top: 0;
+  }
+
+  .swopcase-hero__subheading > :last-child {
+    margin-bottom: 0;
+  }
+
+  .swopcase-hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .swopcase-hero__social-proof {
+    margin: 20px 0 0;
+    font-size: 0.95rem;
+    color: var(--swop-ink-soft);
+    letter-spacing: 0.01em;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(40px, 5vw, 72px);
+    }
+
+    .swopcase-hero__media-col {
+      order: 2;
+    }
+
+    .swopcase-hero__text-col {
+      order: 1;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .swopcase-hero__subheading {
+      max-width: 52ch;
+    }
+
+    .swopcase-hero__actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: auto;
+      max-width: none;
+    }
+
+    .swopcase-hero__actions .swopcase-hero__btn {
+      width: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Hero",
+  "tag": "section",
+  "class": "swopcase-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Augenbrauen-Text (kleine Überschrift)",
+      "info": "Kurze Zeile über der Hauptüberschrift.",
+      "default": "Eine Hülle. Unendlich viele Looks."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Hauptüberschrift",
+      "default": "Wechsle dein Design. Nicht deine Hülle."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Beschreibung",
+      "default": "<p>Die SwopCase ist die transparente Schutzhülle, in die du in Sekunden neue Designs einschiebst – die Swops. Ein Griff, neuer Look.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Primärer Button: Text",
+      "default": "SwopCase entdecken"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primärer Button: Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Sekundärer Button: Text",
+      "default": "So funktioniert’s"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Sekundärer Button: Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Bild (Desktop)",
+      "info": "Wird ab Bildschirmbreite 750px angezeigt. Empfohlen: 1440 × 800 px."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Bild (Mobil)",
+      "info": "Wird auf kleinen Bildschirmen angezeigt. Empfohlen: 750 × 900 px."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Social-Proof-Zeile anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "social_proof_text",
+      "label": "Social-Proof-Text",
+      "info": "Vertrauenszeile unter den Buttons.",
+      "default": "★★★★★  Schon über 10.000 mal verschickt"
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "SwopCase: Hero"
+    }
+  ]
+}
+{% endschema %}

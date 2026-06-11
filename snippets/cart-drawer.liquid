@@ -15,6 +15,12 @@
   .drawer {
     visibility: hidden;
   }
+  .swopcase-drawer-trust {
+    margin-top: 12px;
+  }
+  .swopcase-drawer-trust .swopcase-trust-icons {
+    justify-content: center;
+  }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
@@ -87,6 +93,7 @@
         >
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
             {%- if cart != empty -%}
+              {%- render 'swopcase-cart-progress' -%}
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">
                   <thead role="rowgroup">
@@ -465,6 +472,7 @@
                   </tbody>
                 </table>
               </div>
+              {%- render 'swopcase-cart-upsell' -%}
             {%- endif -%}
             <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
             <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
@@ -574,6 +582,9 @@
           >
             {{ 'sections.cart.checkout' | t }}
           </button>
+        </div>
+        <div class="swopcase-drawer-trust">
+          {%- render 'swopcase-trust-icons' -%}
         </div>
       </div>
     </div>

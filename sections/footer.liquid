@@ -25,6 +25,20 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .footer__swopcase-trust {
+    margin-bottom: 12px;
+  }
+
+  .footer__swopcase-trust .swopcase-trust-icons {
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer__swopcase-trust .swopcase-trust-icons {
+      justify-content: flex-end;
+    }
+  }
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -283,6 +297,11 @@
         {%- endif -%}
       </div>
       <div class="footer__column footer__column--info">
+        {%- if section.settings.show_trust_icons -%}
+          <div class="footer__swopcase-trust">
+            {%- render 'swopcase-trust-icons' -%}
+          </div>
+        {%- endif -%}
         {%- if section.settings.payment_enable -%}
           <div class="footer__payment">
             <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
@@ -484,6 +503,13 @@
       "id": "payment_enable",
       "default": true,
       "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_icons",
+      "default": false,
+      "label": "SwopCase Trust-Leiste anzeigen",
+      "info": "Zeigt die Vertrauens-Icons (Lieferung, Rückgabe, Zahlung, Kompatibilität) über den Zahlungs-Icons."
     },
     {
       "type": "checkbox",

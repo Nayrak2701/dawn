@@ -1,0 +1,215 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-influencer-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-influencer-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-influencer-{{ section.id }}" class="swop-section swopcase-influencer"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    <div class="swopcase-influencer__grid">
+
+      <div class="swopcase-influencer__media-col">
+        {%- if section.settings.image != blank -%}
+          <img class="swop-media swop-media--round swopcase-influencer__img" src="{{ section.settings.image | image_url: width: 750 }}" alt="{{ section.settings.image.alt | escape }}" width="750" height="900" loading="lazy">
+        {%- else -%}
+          <img class="swop-media swop-media--round swopcase-influencer__img" src="{{ 'placeholder-influencer-hero.svg' | asset_url }}" alt="" width="750" height="900" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="swopcase-influencer__quote-col">
+        <figure class="swop-card swopcase-influencer__card">
+          <span class="swopcase-influencer__mark" aria-hidden="true">&ldquo;</span>
+
+          {%- if section.settings.quote != blank -%}
+            <blockquote class="swop-subtitle swopcase-influencer__quote">{{ section.settings.quote | escape | newline_to_br }}</blockquote>
+          {%- endif -%}
+
+          <figcaption class="swopcase-influencer__caption">
+            {%- if section.settings.name != blank -%}
+              <span class="swopcase-influencer__name">{{ section.settings.name | escape }}</span>
+            {%- endif -%}
+            {%- if section.settings.handle != blank -%}
+              <span class="swopcase-influencer__handle">{{ section.settings.handle | escape }}</span>
+            {%- endif -%}
+            {%- if section.settings.role != blank -%}
+              <span class="swopcase-influencer__role">{{ section.settings.role | escape }}</span>
+            {%- endif -%}
+          </figcaption>
+
+          {%- if section.settings.cta_label != blank -%}
+            <a class="swop-btn swop-btn--primary swopcase-influencer__cta"{% if section.settings.cta_link != blank %} href="{{ section.settings.cta_link }}"{% else %} href="#" aria-disabled="true"{% endif %}>{{ section.settings.cta_label | escape }}</a>
+          {%- endif -%}
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .swopcase-influencer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .swopcase-influencer__img {
+    aspect-ratio: 750 / 900;
+    object-fit: cover;
+  }
+
+  .swopcase-influencer__card {
+    position: relative;
+    padding: 32px 24px 28px;
+  }
+
+  .swopcase-influencer__mark {
+    display: block;
+    margin: 0 0 -18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--swop-accent);
+  }
+
+  .swopcase-influencer__quote {
+    margin: 0;
+    font-style: normal;
+  }
+
+  .swopcase-influencer__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 20px;
+  }
+
+  .swopcase-influencer__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--swop-ink);
+  }
+
+  .swopcase-influencer__handle,
+  .swopcase-influencer__role {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--swop-ink-soft);
+  }
+
+  .swopcase-influencer__cta {
+    margin-top: 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-influencer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .swopcase-influencer__card {
+      padding: 44px 40px 40px;
+    }
+    .swopcase-influencer__mark {
+      font-size: 6rem;
+      margin-bottom: -24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Influencer-Slot",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bild",
+      "info": "Hochformat empfohlen (z. B. 750 × 900 px). Ohne Bild wird ein Platzhalter angezeigt."
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Zitat",
+      "default": "Ich wechsel mein Case-Design öfter als meine Nagellackfarbe – und das sagt schon einiges."
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Name",
+      "default": "Mia K."
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Handle",
+      "default": "@miakey"
+    },
+    {
+      "type": "text",
+      "id": "role",
+      "label": "Rolle",
+      "default": "Content Creatorin"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button-Text",
+      "info": "Leer lassen, um den Button auszublenden.",
+      "default": "Mias Look shoppen"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "SwopCase: Influencer-Slot"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,293 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-hiw-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-hiw-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-hiw-{{ section.id }}" class="swop-section swopcase-hiw"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container swop-container--narrow">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <div class="swopcase-hiw__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="swop-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="swop-title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ol class="swopcase-hiw__steps" role="list">
+        {%- for block in section.blocks -%}
+          <li class="swopcase-hiw__step" {{ block.shopify_attributes }}>
+            <div class="swopcase-hiw__media-wrap">
+              <span class="swopcase-hiw__badge" aria-hidden="true">{{ forloop.index }}</span>
+              {%- if block.settings.image != blank -%}
+                <img
+                  class="swop-media swop-media--round swopcase-hiw__media"
+                  src="{{ block.settings.image | image_url: width: 600 }}"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  width="600"
+                  height="600"
+                  loading="lazy">
+              {%- else -%}
+                {%- assign ph_index = forloop.index | at_most: 3 -%}
+                <img
+                  class="swop-media swop-media--round swopcase-hiw__media"
+                  src="{{ 'placeholder-hiw-step-' | append: ph_index | append: '.svg' | asset_url }}"
+                  alt=""
+                  width="600"
+                  height="600"
+                  loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="swopcase-hiw__body">
+              <span class="swop-visually-hidden">Schritt {{ forloop.index }}:</span>
+              {%- if block.settings.title != blank -%}
+                <h3 class="swop-subtitle swopcase-hiw__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="swop-text swopcase-hiw__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="swopcase-hiw__cta">
+        <a
+          class="swop-btn swop-btn--primary"
+          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}href="#" aria-disabled="true"{% endif %}>
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% stylesheet %}
+  .swopcase-hiw__head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .swopcase-hiw__head .swop-title {
+    margin-bottom: 0;
+  }
+
+  .swopcase-hiw__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .swopcase-hiw__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .swopcase-hiw__media-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 16px;
+  }
+
+  .swopcase-hiw__media {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .swopcase-hiw__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--swop-pill);
+    background-color: var(--swop-cta);
+    color: var(--swop-cta-ink);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: var(--swop-shadow-sm);
+  }
+
+  .swopcase-hiw__body {
+    max-width: 340px;
+  }
+
+  .swopcase-hiw__title {
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .swopcase-hiw__text {
+    margin: 0;
+  }
+
+  .swopcase-hiw__cta {
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-hiw__head {
+      margin-bottom: 44px;
+    }
+
+    .swopcase-hiw__steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .swopcase-hiw__cta {
+      margin-top: 48px;
+    }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "SwopCase: So funktioniert’s",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Augenbraue (kleiner Text über der Überschrift)",
+      "default": "In Sekunden gewechselt"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "So einfach swopst du"
+    },
+    {
+      "type": "header",
+      "content": "Button (optional)"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "info": "Leer lassen, um den Button auszublenden.",
+      "default": "Jetzt SwopCase holen"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Schritt",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild",
+          "info": "Quadratisch (600 x 600). Leer lassen für Platzhalter."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Schritt-Titel"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Kurze Beschreibung des Schritts."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "SwopCase: So funktioniert’s",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Hülle abnehmen",
+            "text": "Nimm deine SwopCase kurz vom Handy – geht ganz leicht."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Swop einlegen",
+            "text": "Lege deinen neuen Swop zwischen Hülle und Handy."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Fertig. Neuer Look.",
+            "text": "Hülle wieder drauf – fertig ist dein frischer Vibe."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

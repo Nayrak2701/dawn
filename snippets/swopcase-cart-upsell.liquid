@@ -1,0 +1,60 @@
+{%- comment -%}
+  SwopCase – Cart upsell (Swop suggestions)
+  ------------------------------------------------------------
+  A small horizontal strip that nudges the customer to add Swops
+  (the AOV driver). Each card links to the product page so the
+  customer picks the matching iPhone model there — this avoids
+  any risk of adding a wrong-model variant from the cart.
+
+  (A true one-click add with automatic model matching is a later
+  enhancement; see the open risks note in chat.)
+
+  Phase 1: file is created only. It is NOT wired into the cart
+  drawer yet (that happens in a later, approved phase).
+
+  Styles live in assets/swopcase-theme.css (.swopcase-cart-upsell).
+
+  Optional params:
+    {% render 'swopcase-cart-upsell',
+        collection_handle: 'all-swops',
+        heading: 'Vergiss deine Swops nicht',
+        limit: 8 %}
+{%- endcomment -%}
+
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign upsell_handle = collection_handle | default: 'all-swops'
+  assign upsell_collection = collections[upsell_handle]
+  assign upsell_limit = limit | default: 8
+  assign upsell_heading = heading | default: 'Vergiss deine Swops nicht'
+-%}
+
+{%- if upsell_collection != blank and upsell_collection.products_count > 0 -%}
+  <div class="swopcase-cart-upsell">
+    <div class="swopcase-cart-upsell__head">
+      <p class="swopcase-cart-upsell__title">{{ upsell_heading }}</p>
+      <a class="swopcase-cart-upsell__link" href="{{ upsell_collection.url }}">Alle ansehen</a>
+    </div>
+    <div class="swopcase-cart-upsell__track">
+      {%- for product in upsell_collection.products limit: upsell_limit -%}
+        <a class="swopcase-cart-upsell__card" href="{{ product.url }}">
+          {%- if product.featured_image -%}
+            <img
+              class="swopcase-cart-upsell__img"
+              src="{{ product.featured_image | image_url: width: 232 }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              width="116"
+              height="116"
+              loading="lazy"
+            >
+          {%- else -%}
+            <span class="swopcase-cart-upsell__img" aria-hidden="true"></span>
+          {%- endif -%}
+          <p class="swopcase-cart-upsell__name">{{ product.title }}</p>
+          <p class="swopcase-cart-upsell__price">{{ product.price | money }}</p>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}

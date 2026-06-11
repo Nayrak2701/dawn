@@ -1,0 +1,414 @@
+/* ============================================================
+   SwopCase Theme – Shared Design System
+   ------------------------------------------------------------
+   Single source of truth for design TOKENS and SHARED components
+   used by every swopcase-* section and snippet.
+
+   Loaded per file via:
+     {{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+
+   Section-specific layout CSS lives inside each section's own
+   {% stylesheet %} block (Shopify-bundled, deduped per section).
+   This file holds ONLY: tokens + reusable components + snippet CSS.
+
+   Namespacing:
+     .swop-*      = shared component (button, card, pill, ...)
+     .swopcase-*  = a specific section/snippet block
+
+   This file is self-contained and does NOT depend on Dawn CSS.
+   ============================================================ */
+
+:root {
+  /* Surfaces & ink */
+  --swop-bg: #f1e9e9;          /* brand background (non-negotiable) */
+  --swop-surface: #ffffff;     /* cards on the brand background */
+  --swop-surface-2: #fbf6f6;   /* subtle alt surface */
+  --swop-ink: #2a2422;         /* warm near-black text */
+  --swop-ink-soft: #6e635f;    /* muted/secondary text */
+  --swop-line: #e4d8d8;        /* hairline borders */
+  --swop-placeholder: #d9cdcd; /* placeholder fill (brand spec) */
+
+  /* Accents */
+  --swop-accent: #b98a7d;      /* warm rose – eyebrows, small accents */
+  --swop-accent-soft: #efe2dd; /* tinted chip background */
+  --swop-cta: #2a2422;         /* primary CTA – premium near-black */
+  --swop-cta-ink: #ffffff;
+  --swop-cta-hover: #413833;
+  --swop-success: #4f7a5b;     /* savings / positive */
+  --swop-success-soft: #e7efe8;
+  --swop-star: #c9a24b;        /* muted gold rating */
+
+  /* Radii */
+  --swop-radius-sm: 8px;
+  --swop-radius: 14px;
+  --swop-radius-lg: 22px;
+  --swop-radius-btn: 10px;
+  --swop-pill: 999px;
+
+  /* Elevation */
+  --swop-shadow-sm: 0 1px 2px rgba(42, 36, 34, 0.05);
+  --swop-shadow: 0 14px 36px -18px rgba(42, 36, 34, 0.28);
+
+  /* Layout rhythm */
+  --swop-maxw: 1200px;
+  --swop-maxw-narrow: 820px;
+  --swop-gutter: 20px;
+  --swop-space: clamp(44px, 7vw, 96px); /* vertical section padding */
+
+  /* Type (inherits the active theme font, with a safe fallback) */
+  --swop-font: inherit;
+}
+
+/* ---------- Layout container ---------- */
+.swop-container {
+  width: 100%;
+  max-width: var(--swop-maxw);
+  margin-inline: auto;
+  padding-inline: var(--swop-gutter);
+  box-sizing: border-box;
+}
+.swop-container--narrow {
+  max-width: var(--swop-maxw-narrow);
+}
+
+/* ---------- Section shell ---------- */
+.swop-section {
+  font-family: var(--swop-font);
+  color: var(--swop-ink);
+  background-color: var(--swop-bg);
+  -webkit-font-smoothing: antialiased;
+}
+.swop-section *,
+.swop-section *::before,
+.swop-section *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- Typography helpers ---------- */
+.swop-eyebrow {
+  display: inline-block;
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--swop-accent);
+}
+.swop-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 5.2vw, 2.6rem);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--swop-ink);
+}
+.swop-title--xl {
+  font-size: clamp(2rem, 7vw, 3.4rem);
+}
+.swop-subtitle {
+  margin: 0;
+  font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--swop-ink);
+}
+.swop-lead {
+  margin: 14px 0 0;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--swop-ink-soft);
+  max-width: 60ch;
+}
+.swop-text {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--swop-ink-soft);
+}
+
+/* ---------- Buttons ---------- */
+.swop-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: var(--swop-radius-btn);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease,
+    box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.swop-btn--primary {
+  background-color: var(--swop-cta);
+  color: var(--swop-cta-ink);
+}
+.swop-btn--primary:hover {
+  background-color: var(--swop-cta-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--swop-shadow);
+}
+.swop-btn--secondary {
+  background-color: transparent;
+  color: var(--swop-ink);
+  border-color: var(--swop-ink);
+}
+.swop-btn--secondary:hover {
+  background-color: var(--swop-ink);
+  color: var(--swop-cta-ink);
+}
+.swop-btn--block {
+  display: flex;
+  width: 100%;
+}
+.swop-btn:focus-visible {
+  outline: 2px solid var(--swop-ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Badges / pills ---------- */
+.swop-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--swop-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  background-color: var(--swop-accent-soft);
+  color: var(--swop-ink);
+}
+.swop-badge--save {
+  background-color: var(--swop-success-soft);
+  color: var(--swop-success);
+}
+.swop-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: var(--swop-pill);
+  border: 1px solid var(--swop-line);
+  background-color: var(--swop-surface);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--swop-ink);
+}
+
+/* ---------- Card ---------- */
+.swop-card {
+  background-color: var(--swop-surface);
+  border: 1px solid var(--swop-line);
+  border-radius: var(--swop-radius);
+  box-shadow: var(--swop-shadow-sm);
+  overflow: hidden;
+}
+
+/* ---------- Media / placeholder ---------- */
+.swop-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: var(--swop-placeholder);
+  object-fit: cover;
+}
+.swop-media--round {
+  border-radius: var(--swop-radius);
+}
+
+/* ---------- Star rating ---------- */
+.swop-stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--swop-star);
+  line-height: 1;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+.swop-stars svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* ---------- Accessibility helper ---------- */
+.swop-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   SNIPPET STYLES
+   (snippets cannot carry {% stylesheet %}, so their CSS lives here)
+   ============================================================ */
+
+/* ----- snippets/swopcase-trust-icons.liquid ----- */
+.swopcase-trust-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.swopcase-trust-icons__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--swop-ink);
+}
+.swopcase-trust-icons__item svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke: var(--swop-ink);
+  fill: none;
+}
+
+/* ----- snippets/swopcase-bundle-kontext.liquid ----- */
+.swopcase-bundle-kontext {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--swop-line);
+  border-radius: var(--swop-radius-sm);
+  background-color: var(--swop-success-soft);
+}
+.swopcase-bundle-kontext__icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  fill: var(--swop-success);
+}
+.swopcase-bundle-kontext__text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--swop-ink);
+}
+.swopcase-bundle-kontext__text strong {
+  color: var(--swop-success);
+}
+
+/* ----- snippets/swopcase-cart-progress.liquid ----- */
+.swopcase-cart-progress {
+  margin: 0 0 14px;
+  padding: 14px 16px;
+  border-radius: var(--swop-radius-sm);
+  background-color: var(--swop-surface-2);
+  border: 1px solid var(--swop-line);
+}
+.swopcase-cart-progress__label {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--swop-ink);
+}
+.swopcase-cart-progress__label strong {
+  color: var(--swop-success);
+}
+.swopcase-cart-progress__track {
+  position: relative;
+  height: 8px;
+  border-radius: var(--swop-pill);
+  background-color: var(--swop-line);
+  overflow: hidden;
+}
+.swopcase-cart-progress__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: var(--swop-pill);
+  background-color: var(--swop-success);
+  transition: width 0.4s ease;
+}
+.swopcase-cart-progress--complete .swopcase-cart-progress__fill {
+  background-color: var(--swop-success);
+}
+
+/* ----- snippets/swopcase-cart-upsell.liquid ----- */
+.swopcase-cart-upsell {
+  margin: 0 0 14px;
+}
+.swopcase-cart-upsell__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 10px;
+}
+.swopcase-cart-upsell__title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--swop-ink);
+}
+.swopcase-cart-upsell__link {
+  font-size: 0.82rem;
+  color: var(--swop-ink-soft);
+  text-decoration: underline;
+}
+.swopcase-cart-upsell__track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.swopcase-cart-upsell__card {
+  flex: 0 0 116px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: var(--swop-ink);
+}
+.swopcase-cart-upsell__img {
+  width: 116px;
+  height: 116px;
+  border-radius: var(--swop-radius-sm);
+  object-fit: cover;
+  background-color: var(--swop-placeholder);
+  display: block;
+}
+.swopcase-cart-upsell__name {
+  margin: 6px 0 2px;
+  font-size: 0.78rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.swopcase-cart-upsell__price {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--swop-ink);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .swop-btn,
+  .swopcase-cart-progress__fill {
+    transition: none;
+  }
+}

@@ -1,0 +1,62 @@
+{%- comment -%}
+  SwopCase – Trust icons (compact, reusable)
+  ------------------------------------------------------------
+  A small inline row of reassurance signals. Drop-in anywhere
+  (PDP under the buy button, cart drawer, etc.).
+
+  Phase 1: file is created only. It is NOT wired into any Dawn
+  file yet (that happens in a later, approved phase).
+
+  Styles live in assets/swopcase-theme.css (.swopcase-trust-icons).
+
+  Optional params (all have safe German defaults):
+    {% render 'swopcase-trust-icons',
+        item_1: 'Schnelle Lieferung',
+        item_2: '30 Tage Rückgabe',
+        item_3: 'Sichere Zahlung',
+        item_4: 'Passt auf dein iPhone' %}
+{%- endcomment -%}
+
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign t1 = item_1 | default: 'Schnelle Lieferung'
+  assign t2 = item_2 | default: '30 Tage Rückgabe'
+  assign t3 = item_3 | default: 'Sichere Zahlung'
+  assign t4 = item_4 | default: 'Passt auf dein iPhone'
+-%}
+
+<ul class="swopcase-trust-icons">
+  <li class="swopcase-trust-icons__item">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <path d="M3 7h11v8H3z" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M14 10h4l3 3v2h-7z" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="7" cy="17" r="1.6" /><circle cx="17.5" cy="17" r="1.6" />
+    </svg>
+    <span>{{ t1 }}</span>
+  </li>
+  <li class="swopcase-trust-icons__item">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <path d="M4 9a8 8 0 0 1 14-3" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M18 3v3h-3" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M20 15a8 8 0 0 1-14 3" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M6 21v-3h3" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span>{{ t2 }}</span>
+  </li>
+  <li class="swopcase-trust-icons__item">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <rect x="5" y="10" width="14" height="10" rx="2" stroke-linejoin="round" />
+      <path d="M8 10V8a4 4 0 0 1 8 0v2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span>{{ t3 }}</span>
+  </li>
+  <li class="swopcase-trust-icons__item">
+    <svg viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+      <rect x="7" y="3" width="10" height="18" rx="2.5" stroke-linejoin="round" />
+      <path d="M9.5 17.5h5" stroke-linecap="round" />
+      <path d="M9.5 7l1.6 1.6L14.5 5.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span>{{ t4 }}</span>
+  </li>
+</ul>

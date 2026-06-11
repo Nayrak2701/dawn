@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="SwopCase Hülle Platzhalter 800 x 1000">
+  <rect width="800" height="1000" fill="#D9CDCD"/>
+  <rect x="20" y="20" width="760" height="960" fill="none" stroke="#C7B6B6" stroke-width="2" stroke-dasharray="12 9"/>
+  <text x="400" y="500" font-family="Helvetica, Arial, sans-serif" font-size="57" font-weight="600" fill="#6E635F" text-anchor="middle" dominant-baseline="middle">SwopCase Hülle</text>
+  <text x="400" y="590" font-family="Helvetica, Arial, sans-serif" font-size="33" fill="#8A7B7B" text-anchor="middle" dominant-baseline="middle">800 x 1000 · Platzhalter</text>
+</svg>

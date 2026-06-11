@@ -1,0 +1,290 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "untertitel": {
+          "type": "text",
+          "settings": {
+            "text": "Die transparente Schutzhülle für wechselbare Designs",
+            "text_style": "subtitle"
+          }
+        },
+        "price": {
+          "type": "price"
+        },
+        "rabatt_kontext": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'swopcase-bundle-kontext', text: 'Tipp: Kombiniere deine SwopCase mit Swops – dein <strong>Mengenrabatt</strong> wird automatisch im Warenkorb abgezogen.' %}"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "trust_icons": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'swopcase-trust-icons' %}"
+          }
+        },
+        "description": {
+          "type": "description"
+        },
+        "tab_material": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Material & Schutz",
+            "icon": "lock",
+            "content": "<p>Sturzsichere Hülle mit erhöhten Kanten für Rundumschutz von Display und Kamera. Gefertigt aus recyceltem Material: Polycarbonat und thermoplastisches Polyurethan. Voll kompatibel mit kabellosem Laden.</p>",
+            "page": ""
+          }
+        },
+        "tab_versand": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Versand & Lieferung",
+            "icon": "truck",
+            "content": "<p>Schneller Versand mit Sendungsverfolgung. Die genauen Versandkosten siehst du im Checkout.</p>",
+            "page": ""
+          }
+        },
+        "tab_rueckgabe": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "30 Tage Rückgabe",
+            "icon": "return",
+            "content": "<p>30 Tage Rückgaberecht – ohne Wenn und Aber. Schreib uns einfach und du bekommst alles, was du für die Rücksendung brauchst.</p>",
+            "page": ""
+          }
+        },
+        "tab_refresh": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Refresh-Programm",
+            "icon": "recycle",
+            "content": "<p>Deine transparente Hülle wird mit der Zeit trüb? Mit dem SwopCase Refresh-Programm bekommst du unkompliziert Ersatz: Foto schicken, Link bekommen, fertig.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "untertitel",
+        "price",
+        "rabatt_kontext",
+        "variant_picker",
+        "buy_buttons",
+        "trust_icons",
+        "description",
+        "tab_material",
+        "tab_versand",
+        "tab_rueckgabe",
+        "tab_refresh"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "stacked",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": true,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "erklaerer": {
+      "type": "swopcase-pdp-erklaerer",
+      "blocks": {
+        "schritt_1": {
+          "type": "step",
+          "settings": {
+            "icon": "case",
+            "label": "Hülle ab"
+          }
+        },
+        "schritt_2": {
+          "type": "step",
+          "settings": {
+            "icon": "insert",
+            "label": "Swop rein"
+          }
+        },
+        "schritt_3": {
+          "type": "step",
+          "settings": {
+            "icon": "check",
+            "label": "Look fertig"
+          }
+        }
+      },
+      "block_order": [
+        "schritt_1",
+        "schritt_2",
+        "schritt_3"
+      ],
+      "settings": {
+        "heading": "So funktioniert SwopCase",
+        "note": "In Sekunden gewechselt – beliebig oft.",
+        "background_color": "#F1E9E9",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "crosssell": {
+      "type": "swopcase-crosssell",
+      "settings": {
+        "eyebrow": "Passt dazu",
+        "heading": "Vergiss deine Swops nicht",
+        "collection": "all-swops",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "view_all_label": "Alle Swops ansehen",
+        "background_color": "#F1E9E9",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "trust": {
+      "type": "swopcase-trust-band",
+      "blocks": {
+        "signal_versand": {
+          "type": "signal",
+          "settings": {
+            "icon": "shipping",
+            "label": "Schnelle Lieferung",
+            "sub": "Versand aus Deutschland"
+          }
+        },
+        "signal_rueckgabe": {
+          "type": "signal",
+          "settings": {
+            "icon": "returns",
+            "label": "30 Tage Rückgabe",
+            "sub": "Ohne Wenn und Aber"
+          }
+        },
+        "signal_zahlung": {
+          "type": "signal",
+          "settings": {
+            "icon": "secure",
+            "label": "Sichere Zahlung",
+            "sub": "PayPal, Klarna, Apple Pay"
+          }
+        },
+        "signal_passform": {
+          "type": "signal",
+          "settings": {
+            "icon": "phone",
+            "label": "Passt aufs iPhone",
+            "sub": "iPhone 7 – 16 Pro Max"
+          }
+        }
+      },
+      "block_order": [
+        "signal_versand",
+        "signal_rueckgabe",
+        "signal_zahlung",
+        "signal_passform"
+      ],
+      "settings": {
+        "background_color": "#FFFFFF",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "reviews": {
+      "type": "swopcase-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Lena M.",
+            "rating": 5,
+            "date": "vor 2 Wochen",
+            "verified": true,
+            "text": "ehrlich beste hülle die ich hatte. hab jetzt 4 swops und wechsel je nach outfit haha. qualität top!"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Jasmin",
+            "rating": 5,
+            "date": "vor 1 Monat",
+            "verified": true,
+            "text": "Sehr schnell geliefert und sitzt perfekt. Die Designs sehen noch besser aus als auf den Fotos."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Carla R.",
+            "rating": 4,
+            "date": "vor 3 Wochen",
+            "verified": true,
+            "text": "Hülle ist mega, nur das wechseln muss man kurz üben. nach dem 2. mal gehts dann easy."
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "name": "Niko",
+            "rating": 5,
+            "date": "vor 5 Tagen",
+            "verified": true,
+            "text": "hab die case meiner freundin geschenkt, sie liebt es. mit den swops das perfekte geschenk."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "settings": {
+        "eyebrow": "Bewertungen",
+        "heading": "Das sagen unsere Kund:innen",
+        "show_summary": true,
+        "avg_rating": "4,8",
+        "rating_count": "312",
+        "background_color": "#F1E9E9",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "sticky": {
+      "type": "swopcase-sticky-atc",
+      "settings": {
+        "enable": true,
+        "button_label": "In den Warenkorb",
+        "show_price": true,
+        "show_on_desktop": false,
+        "scroll_threshold": 600
+      }
+    }
+  },
+  "order": [
+    "main",
+    "erklaerer",
+    "crosssell",
+    "trust",
+    "reviews",
+    "sticky"
+  ]
+}

@@ -1,0 +1,234 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-trust-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-trust-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-trust-{{ section.id }}" class="swop-section swopcase-trust"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="swop-title swopcase-trust__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="swopcase-trust__list" role="list" style="--swopcase-trust-count: {{ section.blocks.size }};">
+        {%- for block in section.blocks -%}
+          <li class="swopcase-trust__item" {{ block.shopify_attributes }}>
+            <span class="swopcase-trust__icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'shipping' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+                {%- when 'returns' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a8 8 0 1 1-1.5 4.6"/><path d="M4 4v4h4"/></svg>
+                {%- when 'secure' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
+                {%- when 'phone' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 5.5h3"/><path d="M11 18.5h2"/></svg>
+                {%- when 'star' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 17.9 6.7 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>
+                {%- when 'leaf' -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-7 5-13 14-13 0 9-6 14-13 14"/><path d="M5 19c2-5 5-8 9-9.5"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg>
+              {%- endcase -%}
+            </span>
+            {%- if block.settings.label != blank -%}
+              <span class="swopcase-trust__label">{{ block.settings.label | escape }}</span>
+            {%- endif -%}
+            {%- if block.settings.sub != blank -%}
+              <span class="swopcase-trust__sub">{{ block.settings.sub | escape }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+{% stylesheet %}
+  .swopcase-trust__heading {
+    text-align: center;
+    margin: 0 0 1.25rem;
+  }
+
+  .swopcase-trust__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+
+  .swopcase-trust__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: 14px 12px;
+  }
+
+  /* 2x2 mobile dividers */
+  .swopcase-trust__item:nth-child(2n) {
+    border-left: 1px solid var(--swop-line);
+  }
+  .swopcase-trust__item:nth-child(n + 3) {
+    border-top: 1px solid var(--swop-line);
+  }
+
+  .swopcase-trust__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--swop-accent);
+  }
+
+  .swopcase-trust__label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.25;
+    color: var(--swop-ink);
+  }
+
+  .swopcase-trust__sub {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--swop-ink-soft);
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-trust__list {
+      grid-template-columns: repeat(var(--swopcase-trust-count, 4), 1fr);
+    }
+    .swopcase-trust__item {
+      padding: 8px 18px;
+      border-top: 0;
+    }
+    .swopcase-trust__item:nth-child(2n) {
+      border-left: 0;
+    }
+    .swopcase-trust__item + .swopcase-trust__item {
+      border-left: 1px solid var(--swop-line);
+    }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "SwopCase: Trust-Band",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift (optional)",
+      "info": "Leer lassen, um keine Überschrift anzuzeigen."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "signal",
+      "name": "Signal",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shipping",
+          "options": [
+            { "value": "shipping", "label": "Versand" },
+            { "value": "returns", "label": "Rückgabe" },
+            { "value": "secure", "label": "Zahlung" },
+            { "value": "phone", "label": "iPhone" },
+            { "value": "star", "label": "Bewertung" },
+            { "value": "leaf", "label": "Nachhaltig" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Titel",
+          "default": "Schnelle Lieferung"
+        },
+        {
+          "type": "text",
+          "id": "sub",
+          "label": "Untertitel (optional)",
+          "default": "Versand aus Deutschland"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "SwopCase: Trust-Band",
+      "blocks": [
+        {
+          "type": "signal",
+          "settings": {
+            "icon": "shipping",
+            "label": "Schnelle Lieferung",
+            "sub": "Versand aus Deutschland"
+          }
+        },
+        {
+          "type": "signal",
+          "settings": {
+            "icon": "returns",
+            "label": "30 Tage Rückgabe",
+            "sub": "Ohne Wenn und Aber"
+          }
+        },
+        {
+          "type": "signal",
+          "settings": {
+            "icon": "secure",
+            "label": "Sichere Zahlung",
+            "sub": "PayPal, Klarna, Apple Pay"
+          }
+        },
+        {
+          "type": "signal",
+          "settings": {
+            "icon": "phone",
+            "label": "Passt aufs iPhone",
+            "sub": "iPhone 7 – 16 Pro Max"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

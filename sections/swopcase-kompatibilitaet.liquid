@@ -1,0 +1,183 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-kompat-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-kompat-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-kompat-{{ section.id }}" class="swop-section swopcase-kompat"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container swop-container--narrow">
+    <div class="swopcase-kompat__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="swop-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="swop-title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.lead != blank -%}
+        <p class="swop-lead">{{ section.settings.lead }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign model_list = section.settings.models | newline_to_br | split: '<br />' -%}
+    {%- assign has_models = false -%}
+    {%- for line in model_list -%}
+      {%- assign trimmed = line | strip -%}
+      {%- if trimmed != blank -%}
+        {%- assign has_models = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_models -%}
+      <ul class="swopcase-kompat__pills" role="list">
+        {%- for line in model_list -%}
+          {%- assign model = line | strip -%}
+          {%- if model != blank -%}
+            <li class="swopcase-kompat__pill-item">
+              <span class="swop-pill">{{ model }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="swopcase-kompat__cta">
+        <a
+          class="swop-btn swop-btn--secondary"
+          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}href="#" role="button"{% endif %}
+        >{{ section.settings.button_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% stylesheet %}
+  .swopcase-kompat__header {
+    text-align: center;
+  }
+
+  .swopcase-kompat__pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+
+  .swopcase-kompat__pill-item {
+    display: flex;
+  }
+
+  .swopcase-kompat .swop-pill {
+    cursor: default;
+  }
+
+  .swopcase-kompat__cta {
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-kompat__pills {
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .swopcase-kompat__cta {
+      margin-top: 36px;
+    }
+  }
+{% endstylesheet %}
+{% schema %}
+  {
+    "name": "SwopCase: Kompatibilität",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "eyebrow",
+        "label": "Eyebrow (kleine Überschrift)",
+        "default": "Kompatibilität"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "heading",
+        "label": "Überschrift",
+        "default": "Passt dein iPhone?"
+      },
+      {
+        "type": "text",
+        "id": "lead",
+        "label": "Einleitungstext",
+        "default": "Von iPhone 7 bis iPhone 16 Pro Max – wähle dein Modell direkt auf der Produktseite."
+      },
+      {
+        "type": "textarea",
+        "id": "models",
+        "label": "Modelle",
+        "info": "Ein Modell pro Zeile",
+        "default": "iPhone 16 Pro Max\niPhone 16 Pro\niPhone 16 Plus\niPhone 16\niPhone 15 Pro Max\niPhone 15 Pro\niPhone 15 Plus\niPhone 15\niPhone 14 Pro Max\niPhone 14 Pro\niPhone 14 Plus\niPhone 14\niPhone 13 Pro Max\niPhone 13 Pro\niPhone 13 mini\niPhone 13\niPhone 12 Pro Max\niPhone 12 Pro\niPhone 12 mini\niPhone 12\niPhone 11 Pro Max\niPhone 11 Pro\niPhone 11\niPhone XS Max\niPhone XS\niPhone XR\niPhone X\niPhone 8 Plus\niPhone 8\niPhone 7 Plus\niPhone 7"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button-Text",
+        "info": "Leer lassen, um den Button auszublenden.",
+        "default": "Modell wählen"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button-Link"
+      },
+      {
+        "type": "header",
+        "content": "Darstellung"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Hintergrundfarbe",
+        "default": "#F1E9E9"
+      },
+      {
+        "type": "header",
+        "content": "Abstand"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "label": "Abstand oben",
+        "default": 48
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 120,
+        "step": 4,
+        "unit": "px",
+        "label": "Abstand unten",
+        "default": 48
+      }
+    ],
+    "presets": [
+      {
+        "name": "SwopCase: Kompatibilität"
+      }
+    ]
+  }
+{% endschema %}

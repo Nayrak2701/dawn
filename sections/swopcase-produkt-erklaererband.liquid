@@ -1,0 +1,295 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-erklaerer-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-erklaerer-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-erklaerer-{{ section.id }}" class="swop-section swopcase-erklaerer"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="swopcase-erklaerer__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="swop-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="swop-title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <p class="swop-lead swopcase-erklaerer__intro">{{ section.settings.intro | escape }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="swopcase-erklaerer__grid">
+        {%- for block in section.blocks -%}
+          <article class="swop-card swopcase-erklaerer__card" {{ block.shopify_attributes }}>
+            <div class="swopcase-erklaerer__media">
+              {%- if block.settings.image != blank -%}
+                {%- assign img_w = 800 -%}
+                {%- assign img_h = 1000 -%}
+                {%- if block.settings.placeholder_kind == 'lifestyle' -%}
+                  {%- assign img_w = 1200 -%}
+                  {%- assign img_h = 800 -%}
+                {%- endif -%}
+                <img
+                  class="swop-media"
+                  src="{{ block.settings.image | image_url: width: 1600 }}"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  width="{{ img_w }}"
+                  height="{{ img_h }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {%- case block.settings.placeholder_kind -%}
+                  {%- when 'swop' -%}
+                    <img class="swop-media" src="{{ 'placeholder-swop.svg' | asset_url }}" alt="" width="800" height="1000" loading="lazy">
+                  {%- when 'lifestyle' -%}
+                    <img class="swop-media" src="{{ 'placeholder-lifestyle.svg' | asset_url }}" alt="" width="1200" height="800" loading="lazy">
+                  {%- else -%}
+                    <img class="swop-media" src="{{ 'placeholder-case.svg' | asset_url }}" alt="" width="800" height="1000" loading="lazy">
+                {%- endcase -%}
+              {%- endif -%}
+            </div>
+            <div class="swopcase-erklaerer__body">
+              {%- if block.settings.badge != blank -%}
+                <span class="swop-badge swopcase-erklaerer__badge">{{ block.settings.badge | escape }}</span>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="swop-subtitle swopcase-erklaerer__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="swop-text swopcase-erklaerer__text">{{ block.settings.text | escape | newline_to_br }}</p>
+              {%- endif -%}
+              {%- if block.settings.price_label != blank -%}
+                <p class="swopcase-erklaerer__price">{{ block.settings.price_label | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.link_label != blank -%}
+                <a
+                  class="swop-btn swop-btn--secondary swopcase-erklaerer__cta"
+                  {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% else %}href="#" aria-disabled="true"{% endif %}
+                >{{ block.settings.link_label | escape }}</a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .swopcase-erklaerer__head {
+    max-width: var(--swop-maxw-narrow);
+    margin: 0 auto 28px;
+    text-align: center;
+  }
+  .swopcase-erklaerer__intro {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .swopcase-erklaerer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .swopcase-erklaerer__card {
+    display: flex;
+    flex-direction: column;
+  }
+  .swopcase-erklaerer__media {
+    width: 100%;
+  }
+  .swopcase-erklaerer__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 22px;
+  }
+  .swopcase-erklaerer__title {
+    margin: 0;
+  }
+  .swopcase-erklaerer__text {
+    margin: 0;
+  }
+  .swopcase-erklaerer__price {
+    margin: 0;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--swop-ink);
+  }
+  .swopcase-erklaerer__cta {
+    margin-top: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-erklaerer__head {
+      margin-bottom: 40px;
+    }
+    .swopcase-erklaerer__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Produkt-Erklärband",
+  "tag": "section",
+  "class": "swopcase-erklaerer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Augenbraue (kleine Überschrift)",
+      "default": "Das Prinzip"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Zwei Teile. Ein System."
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Einleitungstext",
+      "default": "SwopCase und Swops funktionieren unabhängig voneinander – kombiniere sie, wie du willst."
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "teil",
+      "name": "Teil",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "placeholder_kind",
+          "label": "Platzhalter-Typ (wenn kein Bild gewählt)",
+          "info": "Bestimmt das Platzhalterbild, falls du kein eigenes Bild hochlädst.",
+          "options": [
+            { "value": "case", "label": "Hülle" },
+            { "value": "swop", "label": "Swop" },
+            { "value": "lifestyle", "label": "Lifestyle" }
+          ],
+          "default": "case"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bild"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "Die Basis"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Die SwopCase"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Transparente, sturzsichere Schutzhülle mit erhöhten Kanten. Funktioniert auch komplett ohne Swop."
+        },
+        {
+          "type": "text",
+          "id": "price_label",
+          "label": "Preis-Label",
+          "default": "ab 14,99 €"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Button-Text",
+          "default": "Hülle ansehen"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button-Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "SwopCase: Produkt-Erklärband",
+      "blocks": [
+        {
+          "type": "teil",
+          "settings": {
+            "placeholder_kind": "case",
+            "badge": "Die Basis",
+            "title": "Die SwopCase",
+            "text": "Transparente, sturzsichere Schutzhülle mit erhöhten Kanten. Funktioniert auch komplett ohne Swop.",
+            "price_label": "ab 14,99 €",
+            "link_label": "Hülle ansehen"
+          }
+        },
+        {
+          "type": "teil",
+          "settings": {
+            "placeholder_kind": "swop",
+            "badge": "Der Look",
+            "title": "Die Swops",
+            "text": "Dünne Design-Einlagen zum Einschieben. Über 130 Designs – und sie passen in jede kompatible Hülle.",
+            "price_label": "ab 3,99 €",
+            "link_label": "Swops entdecken"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

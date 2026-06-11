@@ -1,0 +1,284 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- if product and section.settings.enable -%}
+  {%- style -%}
+    #swopcase-sticky-{{ section.id }} .swopcase-sticky__inner {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 750px) {
+      #swopcase-sticky-{{ section.id }} .swopcase-sticky__inner {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+  <section
+    id="swopcase-sticky-{{ section.id }}"
+    class="swop-section swopcase-sticky{% unless section.settings.show_on_desktop %} swopcase-sticky--mobile-only{% endunless %}"
+    data-threshold="{{ section.settings.scroll_threshold | default: 600 }}"
+    data-product-url="{{ product.url }}"
+    {% if section.settings.background_color != blank %}style="background-color: {{ section.settings.background_color }};"{% endif %}
+  >
+    <div class="swop-container swopcase-sticky__inner">
+      <div class="swopcase-sticky__info">
+        <p class="swopcase-sticky__title">{{ product.title | escape }}</p>
+        {%- if section.settings.show_price -%}
+          <p class="swopcase-sticky__price">
+            {%- if product.compare_at_price > product.price -%}
+              <span class="swopcase-sticky__price-now">{{ product.price | money }}</span>
+              <s class="swopcase-sticky__price-was">
+                <span class="swop-visually-hidden">Regulärer Preis</span>
+                {{ product.compare_at_price | money }}
+              </s>
+            {%- else -%}
+              <span class="swopcase-sticky__price-now">{{ product.price | money }}</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+      <button
+        type="button"
+        class="swop-btn swop-btn--primary swopcase-sticky__btn"
+        data-swopcase-sticky-cta
+      >
+        {{ section.settings.button_label | default: 'In den Warenkorb' | escape }}
+      </button>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var root = document.getElementById('swopcase-sticky-{{ section.id }}');
+      if (!root) return;
+
+      var threshold = parseInt(root.getAttribute('data-threshold'), 10);
+      if (isNaN(threshold)) threshold = 600;
+      var productUrl = root.getAttribute('data-product-url') || '';
+      var cta = root.querySelector('[data-swopcase-sticky-cta]');
+
+      // Show / hide on scroll.
+      var ticking = false;
+      function update() {
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (y >= threshold) {
+          root.classList.add('is-visible');
+        } else {
+          root.classList.remove('is-visible');
+        }
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      update();
+
+      // CTA: jump to the real product form, never duplicate a variant.
+      if (cta) {
+        cta.addEventListener('click', function () {
+          var form = document.querySelector('form[action*="/cart/add"]');
+          if (form) {
+            var prefersReduced = window.matchMedia
+              && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            form.scrollIntoView({
+              behavior: prefersReduced ? 'auto' : 'smooth',
+              block: 'center'
+            });
+            var submit = form.querySelector('[type="submit"], button:not([type])');
+            if (submit) {
+              window.setTimeout(function () {
+                try { submit.focus({ preventScroll: true }); }
+                catch (e) { submit.focus(); }
+              }, prefersReduced ? 0 : 400);
+            }
+          } else if (productUrl) {
+            window.location.href = productUrl;
+          }
+        });
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .swopcase-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background-color: var(--swop-surface);
+    border-top: 1px solid var(--swop-line);
+    box-shadow: var(--swop-shadow);
+    transform: translateY(110%);
+    transition: transform 0.25s ease;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .swopcase-sticky.is-visible {
+    transform: translateY(0);
+  }
+  .swopcase-sticky__inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .swopcase-sticky__info {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .swopcase-sticky__title {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--swop-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .swopcase-sticky__price {
+    margin: 2px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: var(--swop-ink);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .swopcase-sticky__price-now {
+    font-weight: 700;
+    color: var(--swop-ink);
+  }
+  .swopcase-sticky__price-was {
+    font-weight: 500;
+    color: var(--swop-ink-soft);
+    text-decoration: line-through;
+  }
+  .swopcase-sticky__btn {
+    flex: 0 0 auto;
+    min-height: 48px;
+    padding-left: 20px;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+
+  /* Mobile-only: hide on larger viewports unless merchant opts in. */
+  @media screen and (min-width: 990px) {
+    .swopcase-sticky--mobile-only {
+      display: none;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .swopcase-sticky__title {
+      font-size: 1rem;
+    }
+    .swopcase-sticky__price {
+      font-size: 0.96rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .swopcase-sticky {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Sticky Warenkorb",
+  "tag": "section",
+  "class": "swopcase-sticky-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Diese Leiste erscheint nur auf Produktseiten. Sie wird fixiert am unteren Bildschirmrand angezeigt und führt beim Klick zum echten Kauf-Formular der Seite (es wird keine eigene Variante hinzugefügt)."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Sticky-Leiste aktivieren",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "In den Warenkorb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Preis anzeigen",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_desktop",
+      "label": "Auch auf dem Desktop anzeigen",
+      "info": "Standardmäßig nur auf Mobilgeräten sichtbar. Ab 990px Breite ausgeblendet.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "scroll_threshold",
+      "min": 0,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Einblenden nach Scroll-Distanz",
+      "info": "Ab wie vielen Pixeln Scrollen die Leiste erscheint.",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "paragraph",
+      "content": "Hinweis: Diese Leiste ist fixiert positioniert. Die Abstände wirken nur auf den Inhalt der Leiste, nicht auf die Position am Bildschirmrand."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SwopCase: Sticky Add-to-Cart (PDP)"
+    }
+  ]
+}
+{% endschema %}

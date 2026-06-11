@@ -1,210 +1,368 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
+    "hero": {
+      "type": "swopcase-hero",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "button_label": "SwopCase entdecken",
+        "button_link": "shopify://products/swopcase",
+        "button_label_2": "Swops entdecken",
+        "button_link_2": "shopify://collections/all-swops"
       }
     },
-    "rich_text": {
-      "type": "rich-text",
+    "erklaererband": {
+      "type": "swopcase-produkt-erklaererband",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "teil_case": {
+          "type": "teil",
           "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
+            "placeholder_kind": "case",
+            "badge": "Die Basis",
+            "title": "Die SwopCase",
+            "text": "Transparente, sturzsichere Schutzhülle mit erhöhten Kanten. Funktioniert auch komplett ohne Swop.",
+            "price_label": "14,99 €",
+            "link_label": "Hülle ansehen",
+            "link": "shopify://products/swopcase"
           }
         },
-        "text": {
-          "type": "text",
+        "teil_swops": {
+          "type": "teil",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
+            "placeholder_kind": "swop",
+            "badge": "Der Look",
+            "title": "Die Swops",
+            "text": "Dünne Design-Einlagen zum Einschieben. Über 130 Designs – und sie passen in jede kompatible Hülle.",
+            "price_label": "3,99 € pro Swop",
+            "link_label": "Swops entdecken",
+            "link": "shopify://collections/all-swops"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text"
+        "teil_case",
+        "teil_swops"
+      ],
+      "settings": {}
+    },
+    "how_it_works": {
+      "type": "swopcase-how-it-works",
+      "blocks": {
+        "schritt_1": {
+          "type": "step",
+          "settings": {
+            "title": "Hülle abnehmen",
+            "text": "Nimm deine SwopCase kurz vom Handy – geht ganz leicht."
+          }
+        },
+        "schritt_2": {
+          "type": "step",
+          "settings": {
+            "title": "Swop einlegen",
+            "text": "Lege deinen neuen Swop zwischen Hülle und Handy."
+          }
+        },
+        "schritt_3": {
+          "type": "step",
+          "settings": {
+            "title": "Fertig. Neuer Look.",
+            "text": "Hülle wieder drauf – fertig ist dein frischer Vibe."
+          }
+        }
+      },
+      "block_order": [
+        "schritt_1",
+        "schritt_2",
+        "schritt_3"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
+        "button_label": "Jetzt SwopCase holen",
+        "button_link": "shopify://products/swopcase"
+      }
+    },
+    "trust": {
+      "type": "swopcase-trust-band",
+      "blocks": {
+        "signal_versand": {
+          "type": "signal",
+          "settings": {
+            "icon": "shipping",
+            "label": "Schnelle Lieferung",
+            "sub": "Versand aus Deutschland"
+          }
+        },
+        "signal_rueckgabe": {
+          "type": "signal",
+          "settings": {
+            "icon": "returns",
+            "label": "30 Tage Rückgabe",
+            "sub": "Ohne Wenn und Aber"
+          }
+        },
+        "signal_zahlung": {
+          "type": "signal",
+          "settings": {
+            "icon": "secure",
+            "label": "Sichere Zahlung",
+            "sub": "PayPal, Klarna, Apple Pay"
+          }
+        },
+        "signal_passform": {
+          "type": "signal",
+          "settings": {
+            "icon": "phone",
+            "label": "Passt aufs iPhone",
+            "sub": "iPhone 7 – 16 Pro Max"
+          }
+        }
+      },
+      "block_order": [
+        "signal_versand",
+        "signal_rueckgabe",
+        "signal_zahlung",
+        "signal_passform"
+      ],
+      "settings": {
+        "background_color": "#FFFFFF",
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
+        "title": "Entdecke die Swops",
+        "heading_size": "h1",
+        "collection": "all-swops",
         "products_to_show": 8,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
+        "show_view_all": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
         "columns_mobile": "2",
-        "padding_top": 28,
+        "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "collage": {
-      "type": "collage",
+    "vorteile": {
+      "type": "swopcase-vorteile",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "vorteil_schutz": {
+          "type": "vorteil",
           "settings": {
-            "collection": ""
+            "icon": "shield",
+            "title": "Rundumschutz",
+            "text": "Erhöhte Kanten schützen Display und Kamera bei Stürzen."
           }
         },
-        "product": {
-          "type": "product",
+        "vorteil_sturz": {
+          "type": "vorteil",
           "settings": {
-            "product": "",
-            "second_image": false
+            "icon": "drop",
+            "title": "Sturzsicher",
+            "text": "Stabiles, flexibles Material fängt Stöße im Alltag ab."
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "vorteil_laden": {
+          "type": "vorteil",
           "settings": {
-            "collection": ""
+            "icon": "wireless",
+            "title": "Kabelloses Laden",
+            "text": "Voll kompatibel mit Wireless- und MagSafe-Laden."
+          }
+        },
+        "vorteil_nachhaltig": {
+          "type": "vorteil",
+          "settings": {
+            "icon": "leaf",
+            "title": "Nachhaltiger",
+            "text": "Aus recyceltem Polycarbonat und TPU gefertigt."
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "vorteil_schutz",
+        "vorteil_sturz",
+        "vorteil_laden",
+        "vorteil_nachhaltig"
       ],
-      "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+      "settings": {}
     },
-    "video": {
-      "type": "video",
-      "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
+    "ugc": {
+      "type": "swopcase-ugc-strip",
       "blocks": {
-        "column1": {
-          "type": "column",
+        "post_1": {
+          "type": "post",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "handle": "@lena.styles"
           }
         },
-        "column2": {
-          "type": "column",
+        "post_2": {
+          "type": "post",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "handle": "@miakey"
           }
         },
-        "column3": {
-          "type": "column",
+        "post_3": {
+          "type": "post",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "handle": "@sophiie___"
           }
         }
       },
       "block_order": [
-        "column1",
-        "column2",
-        "column3"
+        "post_1",
+        "post_2",
+        "post_3"
+      ],
+      "settings": {}
+    },
+    "influencer": {
+      "type": "swopcase-influencer-slot",
+      "settings": {
+        "cta_link": "shopify://collections/all-swops"
+      }
+    },
+    "reviews": {
+      "type": "swopcase-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Lena M.",
+            "rating": 5,
+            "date": "vor 2 Wochen",
+            "verified": true,
+            "text": "ehrlich beste hülle die ich hatte. hab jetzt 4 swops und wechsel je nach outfit haha. qualität top!"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Jasmin",
+            "rating": 5,
+            "date": "vor 1 Monat",
+            "verified": true,
+            "text": "Sehr schnell geliefert und sitzt perfekt. Die Designs sehen noch besser aus als auf den Fotos."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Carla R.",
+            "rating": 4,
+            "date": "vor 3 Wochen",
+            "verified": true,
+            "text": "Hülle ist mega, nur das wechseln muss man kurz üben. nach dem 2. mal gehts dann easy."
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "name": "Niko",
+            "rating": 5,
+            "date": "vor 5 Tagen",
+            "verified": true,
+            "text": "hab die case meiner freundin geschenkt, sie liebt es. mit den swops das perfekte geschenk."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "frage_passform": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Passt die SwopCase auf mein iPhone?",
+            "icon": "check_mark",
+            "row_content": "<p>Sehr wahrscheinlich ja: Die SwopCase gibt es für alle Modelle von iPhone 7 bis iPhone 16 Pro Max. Wähle dein Modell einfach auf der Produktseite aus.</p>",
+            "page": ""
+          }
+        },
+        "frage_wechsel": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Wie wechsle ich einen Swop?",
+            "icon": "question_mark",
+            "row_content": "<p>Hülle kurz abnehmen, Swop zwischen Hülle und Handy legen, Hülle wieder aufsetzen – fertig. Das dauert nur ein paar Sekunden und geht beliebig oft.</p>",
+            "page": ""
+          }
+        },
+        "frage_andere_huellen": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Funktionieren Swops auch in anderen Hüllen?",
+            "icon": "star",
+            "row_content": "<p>Ja. Swops passen in jede transparente Hülle für dein iPhone-Modell – am schönsten wirken sie natürlich in der SwopCase.</p>",
+            "page": ""
+          }
+        },
+        "frage_versand": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Wie schnell wird geliefert?",
+            "icon": "truck",
+            "row_content": "<p>Wir versenden schnell und mit Sendungsverfolgung. Die genauen Versandkosten und Lieferzeiten siehst du im Checkout.</p>",
+            "page": ""
+          }
+        },
+        "frage_rueckgabe": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Wie funktioniert die Rückgabe?",
+            "icon": "return",
+            "row_content": "<p>Du hast 30 Tage Rückgaberecht – ohne Wenn und Aber. Schreib uns einfach, wir schicken dir alles, was du brauchst.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "frage_passform",
+        "frage_wechsel",
+        "frage_andere_huellen",
+        "frage_versand",
+        "frage_rueckgabe"
       ],
       "settings": {
-        "title": "",
+        "caption": "FAQ",
+        "heading": "Häufige Fragen",
         "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
+        "layout": "none",
         "color_scheme": "scheme-1",
-        "columns_mobile": "1",
+        "open_first_collapsible_row": true,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "kompatibilitaet": {
+      "type": "swopcase-kompatibilitaet",
+      "settings": {
+        "button_label": "Modell wählen",
+        "button_link": "shopify://products/swopcase"
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
+    "hero",
+    "erklaererband",
+    "how_it_works",
+    "trust",
     "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "vorteile",
+    "ugc",
+    "influencer",
+    "reviews",
+    "faq",
+    "kompatibilitaet"
   ]
 }

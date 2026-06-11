@@ -1,0 +1,257 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-vorteile-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-vorteile-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-vorteile-{{ section.id }}" class="swop-section swopcase-vorteile"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="swop-eyebrow swopcase-vorteile__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="swop-title swopcase-vorteile__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="swopcase-vorteile__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="swopcase-vorteile__item" {{ block.shopify_attributes }}>
+            <span class="swopcase-vorteile__badge" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'shield' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+                {%- when 'drop' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><path d="M12 3c3.5 4.2 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2-5.8 5.5-10Z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></svg>
+                {%- when 'wireless' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><circle cx="12" cy="12" r="3"/><path d="M6.5 6.5a7.8 7.8 0 0 0 0 11"/><path d="M17.5 6.5a7.8 7.8 0 0 1 0 11"/><path d="M4 4a11 11 0 0 0 0 16"/><path d="M20 4a11 11 0 0 1 0 16"/></svg>
+                {%- when 'leaf' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><path d="M5 19c0-8 5-13 14-13 0 9-5 14-13 14"/><path d="M5 19c2.5-4 5.5-6.5 9.5-8.5"/></svg>
+                {%- when 'sparkle' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><path d="M12 3c.6 4.2 1.8 5.4 6 6-4.2.6-5.4 1.8-6 6-.6-4.2-1.8-5.4-6-6 4.2-.6 5.4-1.8 6-6Z"/><path d="M18.5 14.5c.25 1.5.75 2 2.5 2.5-1.75.5-2.25 1-2.5 2.5-.25-1.5-.75-2-2.5-2.5 1.75-.5 2.25-1 2.5-2.5Z"/></svg>
+                {%- when 'phone' -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 6h2"/><path d="M11 18h2"/></svg>
+                {%- else -%}
+                  <svg class="swopcase-vorteile__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false" role="presentation"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+              {%- endcase -%}
+            </span>
+            {%- if block.settings.title != blank -%}
+              <h3 class="swop-subtitle swopcase-vorteile__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="swop-text swopcase-vorteile__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .swopcase-vorteile__eyebrow {
+    text-align: center;
+  }
+
+  .swopcase-vorteile__heading {
+    text-align: center;
+    margin-top: 0.4rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .swopcase-vorteile__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .swopcase-vorteile__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .swopcase-vorteile__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--swop-pill);
+    background-color: var(--swop-accent-soft);
+    color: var(--swop-accent);
+    margin-bottom: 1rem;
+    flex: 0 0 auto;
+  }
+
+  .swopcase-vorteile__icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+
+  .swopcase-vorteile__title {
+    margin: 0 0 0.4rem;
+  }
+
+  .swopcase-vorteile__text {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-vorteile__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.4rem 2rem;
+    }
+
+    .swopcase-vorteile__heading {
+      margin-bottom: 3.2rem;
+    }
+
+    .swopcase-vorteile__badge {
+      width: 56px;
+      height: 56px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Vorteile",
+  "tag": "section",
+  "class": "swop-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (kleine Überschrift)",
+      "default": "Warum SwopCase"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Mehr als nur eine Hülle"
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand oben",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Abstand unten",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "vorteil",
+      "name": "Vorteil",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Symbol",
+          "options": [
+            { "value": "shield", "label": "Schutz" },
+            { "value": "drop", "label": "Sturz" },
+            { "value": "wireless", "label": "Laden" },
+            { "value": "leaf", "label": "Nachhaltig" },
+            { "value": "sparkle", "label": "Style" },
+            { "value": "phone", "label": "Passform" }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Rundumschutz"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Erhöhte Kanten schützen Display und Kamera bei Stürzen."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "SwopCase: Vorteile",
+      "blocks": [
+        {
+          "type": "vorteil",
+          "settings": {
+            "icon": "shield",
+            "title": "Rundumschutz",
+            "text": "Erhöhte Kanten schützen Display und Kamera bei Stürzen."
+          }
+        },
+        {
+          "type": "vorteil",
+          "settings": {
+            "icon": "drop",
+            "title": "Sturzsicher",
+            "text": "Stabiles, flexibles Material fängt Stöße im Alltag ab."
+          }
+        },
+        {
+          "type": "vorteil",
+          "settings": {
+            "icon": "wireless",
+            "title": "Kabelloses Laden",
+            "text": "Voll kompatibel mit Wireless- und MagSafe-Laden."
+          }
+        },
+        {
+          "type": "vorteil",
+          "settings": {
+            "icon": "leaf",
+            "title": "Nachhaltiger",
+            "text": "Aus 100 % recyceltem Polycarbonat gefertigt."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

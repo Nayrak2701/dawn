@@ -1,0 +1,79 @@
+{%- comment -%}
+  SwopCase – Cart progress toward next quantity discount
+  ------------------------------------------------------------
+  Visual context only. Counts how many "Swops" are in the cart
+  and shows progress toward the next discount tier.
+
+  IMPORTANT: the real discount is applied by the Smart Automatic
+  Discounts app at the cart/checkout. This bar NEVER calculates a
+  price. The `target` is a display threshold that must be kept in
+  sync MANUALLY with the tier you configure in that app.
+
+  Swop detection: a line item counts as a Swop when its product
+  carries the tag "Swops" (confirmed against the live catalogue:
+  Swop products are tagged ["Abstract","Backplate","Swops"]).
+
+  Phase 1: file is created only. It is NOT wired into the cart
+  drawer yet (that happens in a later, approved phase).
+
+  Styles live in assets/swopcase-theme.css (.swopcase-cart-progress).
+
+  Optional params:
+    {% render 'swopcase-cart-progress',
+        target: 3,
+        swop_tag: 'Swops' %}
+{%- endcomment -%}
+
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign goal = target | default: 3
+  assign tag_name = swop_tag | default: 'Swops'
+
+  assign swop_count = 0
+  for item in cart.items
+    if item.product.tags contains tag_name
+      assign swop_count = swop_count | plus: item.quantity
+    endif
+  endfor
+
+  assign remaining = goal | minus: swop_count
+  if remaining < 0
+    assign remaining = 0
+  endif
+
+  assign pct = 0
+  if goal > 0
+    assign pct = swop_count | times: 100 | divided_by: goal
+  endif
+  if pct > 100
+    assign pct = 100
+  endif
+
+  assign is_complete = false
+  if swop_count >= goal
+    assign is_complete = true
+  endif
+-%}
+
+<div class="swopcase-cart-progress{% if is_complete %} swopcase-cart-progress--complete{% endif %}">
+  <p class="swopcase-cart-progress__label">
+    {%- if swop_count == 0 -%}
+      Lege {{ goal }} Swops dazu und sichere dir den <strong>Mengenrabatt</strong>.
+    {%- elsif is_complete -%}
+      <strong>Top!</strong> Dein Mengenrabatt ist im Warenkorb aktiv.
+    {%- else -%}
+      Nur noch <strong>{{ remaining }}</strong>
+      {%- if remaining == 1 %} Swop{% else %} Swops{% endif %} bis zum Mengenrabatt.
+    {%- endif -%}
+  </p>
+  <div
+    class="swopcase-cart-progress__track"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="{{ goal }}"
+    aria-valuenow="{{ swop_count }}"
+  >
+    <span class="swopcase-cart-progress__fill" style="width: {{ pct }}%;"></span>
+  </div>
+</div>

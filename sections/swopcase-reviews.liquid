@@ -1,0 +1,376 @@
+{{ 'swopcase-theme.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  #swopcase-reviews-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #swopcase-reviews-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<section id="swopcase-reviews-{{ section.id }}" class="swop-section swopcase-reviews"{% if section.settings.background_color != blank %} style="background-color: {{ section.settings.background_color }};"{% endif %}>
+  <div class="swop-container">
+    <div class="swopcase-reviews__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="swop-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="swop-title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.show_summary -%}
+        {%- comment -%} avg_rating ist Freitext (z. B. „4,8“) – Komma zu Punkt, in Zahl wandeln, runden, auf 0–5 begrenzen. {%- endcomment -%}
+        {%- assign avg_filled = section.settings.avg_rating | replace: ',', '.' | plus: 0 | round | at_most: 5 | at_least: 0 -%}
+        <div class="swopcase-reviews__summary">
+          <span class="swop-stars swopcase-reviews__summary-stars" role="img" aria-label="Durchschnittliche Bewertung {{ section.settings.avg_rating }} von 5 Sternen">
+            {%- for i in (1..5) -%}
+              {%- if i <= avg_filled -%}
+                <svg class="swopcase-reviews__star is-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.5z"/></svg>
+              {%- else -%}
+                <svg class="swopcase-reviews__star is-empty" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.5z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </span>
+          <p class="swopcase-reviews__summary-text">
+            <span class="swopcase-reviews__avg">{{ section.settings.avg_rating }}</span><span class="swopcase-reviews__avg-max"> / 5</span>
+            {%- if section.settings.rating_count != blank -%}
+              <span class="swopcase-reviews__count">({{ section.settings.rating_count }} Bewertungen)</span>
+            {%- endif -%}
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="swopcase-reviews__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign rating = block.settings.rating | at_most: 5 | at_least: 0 -%}
+          <li class="swop-card swopcase-reviews__card" {{ block.shopify_attributes }}>
+            <span class="swop-stars swopcase-reviews__card-stars" role="img" aria-label="Bewertung {{ rating }} von 5 Sternen">
+              {%- for i in (1..5) -%}
+                {%- if i <= rating -%}
+                  <svg class="swopcase-reviews__star is-filled" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.5z"/></svg>
+                {%- else -%}
+                  <svg class="swopcase-reviews__star is-empty" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.9l-5.8 3.06 1.11-6.46-4.7-4.58 6.49-.94L12 2.5z"/></svg>
+                {%- endif -%}
+              {%- endfor -%}
+            </span>
+
+            {%- if block.settings.text != blank -%}
+              <p class="swop-text swopcase-reviews__text">{{ block.settings.text | newline_to_br }}</p>
+            {%- endif -%}
+
+            <div class="swopcase-reviews__footer">
+              {%- if block.settings.name != blank -%}
+                <span class="swopcase-reviews__name">{{ block.settings.name }}</span>
+              {%- endif -%}
+              {%- if block.settings.verified -%}
+                <span class="swop-badge swop-badge--save swopcase-reviews__verified">Verifiziert</span>
+              {%- endif -%}
+              {%- if block.settings.date != blank -%}
+                <span class="swopcase-reviews__date">{{ block.settings.date }}</span>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .swopcase-reviews__head {
+    text-align: center;
+    max-width: var(--swop-maxw-narrow);
+    margin-inline: auto;
+    margin-bottom: 28px;
+  }
+
+  .swopcase-reviews__head .swop-eyebrow,
+  .swopcase-reviews__head .swop-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .swopcase-reviews__summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 12px;
+    margin-top: 16px;
+  }
+
+  .swopcase-reviews__summary-text {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 0;
+  }
+
+  .swopcase-reviews__avg {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--swop-ink);
+  }
+
+  .swopcase-reviews__avg-max {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--swop-ink-soft);
+  }
+
+  .swopcase-reviews__count {
+    font-size: 0.95rem;
+    color: var(--swop-ink-soft);
+  }
+
+  .swopcase-reviews__star {
+    display: inline-block;
+    color: var(--swop-line);
+  }
+
+  .swopcase-reviews__star.is-filled {
+    color: var(--swop-star);
+  }
+
+  .swopcase-reviews__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .swopcase-reviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .swopcase-reviews__head {
+      margin-bottom: 36px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .swopcase-reviews__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .swopcase-reviews__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+  }
+
+  .swopcase-reviews__card-stars {
+    line-height: 0;
+  }
+
+  .swopcase-reviews__text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    flex: 1 1 auto;
+    margin: 0;
+  }
+
+  .swopcase-reviews__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    margin-top: 4px;
+    padding-top: 12px;
+    border-top: 1px solid var(--swop-line);
+  }
+
+  .swopcase-reviews__name {
+    font-weight: 700;
+    color: var(--swop-ink);
+  }
+
+  .swopcase-reviews__date {
+    font-size: 0.9rem;
+    color: var(--swop-ink-soft);
+    margin-left: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SwopCase: Bewertungen",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Augenbraue (kleine Überschrift)",
+      "default": "Bewertungen"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "Das sagen unsere Kund:innen"
+    },
+    {
+      "type": "header",
+      "content": "Bewertungs-Zusammenfassung"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Zusammenfassung anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "avg_rating",
+      "label": "Durchschnittliche Bewertung",
+      "info": "Zahl zwischen 0 und 5, z. B. 4,8. Bestimmt auch, wie viele Sterne gefüllt angezeigt werden (gerundet).",
+      "default": "4,8"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Anzahl der Bewertungen",
+      "default": "312"
+    },
+    {
+      "type": "header",
+      "content": "Darstellung"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Hintergrundfarbe",
+      "default": "#F1E9E9"
+    },
+    {
+      "type": "header",
+      "content": "Abstand"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Abstand oben",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Abstand unten",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Bewertung",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Vorname N."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Sterne",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Datum",
+          "info": "Freitext, z. B. „vor 2 Wochen“",
+          "default": "vor 2 Wochen"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Bewertungstext",
+          "default": "Tolle Qualität und schnelle Lieferung."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Als „Verifiziert“ kennzeichnen",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "SwopCase: Bewertungen",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name": "Lena M.",
+            "rating": 5,
+            "date": "vor 2 Wochen",
+            "verified": true,
+            "text": "ehrlich beste hülle die ich hatte. hab jetzt 4 swops und wechsel je nach outfit haha. qualität top!"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Jasmin",
+            "rating": 5,
+            "date": "vor 1 Monat",
+            "verified": true,
+            "text": "Sehr schnell geliefert und sitzt perfekt. Die Designs sehen noch besser aus als auf den Fotos."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Carla R.",
+            "rating": 4,
+            "date": "vor 3 Wochen",
+            "verified": true,
+            "text": "Hülle ist mega, nur das wechseln muss man kurz üben. nach dem 2. mal gehts dann easy."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Niko",
+            "rating": 5,
+            "date": "vor 5 Tagen",
+            "verified": true,
+            "text": "hab die case meiner freundin geschenkt, sie liebt es. mit den swops das perfekte geschenk."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
